@@ -36,6 +36,7 @@ If you are taking this course, I assume you have some basic web development know
 
 To go through this course, you will need to have a few things installed ahead of time.
 
+- **WINDOWS ONLY:** [git-bash](https://git-scm.com/downloads) or [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) if you don't want to deal with actually developing on Windows.
 - [nodeJS](https://nodejs.org/en/)
   - :black_square_button: If you are on Windows then download it from the website. (You could also use something like Chocolatey if you are in to that.)
   - :apple: If you are on MacOS I highly recommend using [homebrew](https://brew.sh/) and running `brew install node`
