@@ -6,6 +6,12 @@ Aidan Glickman
 
 [aidg.dev](http://aidg.dev)
 
+## `Welcome`
+
+Welcome to this VueJS tutorial. This repo is meant as a guide for the workshop I am teaching at hackBCA V, but you could probably follow along from the code examples and this document.
+
+In this tutorial, we will be learning VueJS by jumping right in and doing a project. We will be building and continuously improving a todo list application as an example.
+
 ## `$ wtf vue`
 
 ```sh
@@ -101,4 +107,22 @@ Components have each of the three things we use in a web app within them, making
 </style>
 ```
 
-For a full Vue app, we are essentially just sticking a bunch of components together with some overhead to make a complete app.
+For a full Vue app, we are essentially just sticking a bunch of components together with some overhead to make a complete thing.
+
+## `vue create`
+
+Now that we have a basic understanding of what Vue is, let's jump right in and start writing our first app!
+
+Start by navigating to wherever you want your project to live.
+
+```bash
+cd ~/Documents # Or wherever you want to put your project
+```
+
+Then we can use VueCLI to create a project for us.
+
+```bash
+vue create todo-list
+```
+
+This command will give us a menu to guide us through all of the boilerplate that our Vue application will need. This includes configuring important tools like babel and webpack for us, so that we don't need to deal with those and can get right in to the fun stuff.
