@@ -126,3 +126,15 @@ vue create todo-list
 ```
 
 This command will give us a menu to guide us through all of the boilerplate that our Vue application will need. This includes configuring important tools like babel and webpack for us, so that we don't need to deal with those and can get right in to the fun stuff.
+
+```bash
+? Please pick a preset: Manually select features
+? Check the features needed for your project: Babel, CSS Pre-processors, Linter
+? Pick a CSS pre-processor (PostCSS, Autoprefixer and CSS Modules are supported by default): Sass/SCSS (with dart-sass)
+? Pick a linter / formatter config: Prettier
+? Pick additional lint features: (Press <space> to select, <a> to toggle all, <i> to invert selection)Lint on save
+? Where do you prefer placing config for Babel, ESLint, etc.? In dedicated config files
+? Save this as a preset for future projects? No
+```
+
+These are the settings that we will use for this project, so go through the menu and select the same options (if you would like to save it as a preset that's fine.)
