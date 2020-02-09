@@ -164,3 +164,11 @@ Now if we follow the link in our terminal output, we can see a webpage that look
 ![Vue Create Page](pictures/vue-create.png)
 
 Cool! Just like that we have a development environment. And the coolest thing is it will update any time we make a change to our source code!
+
+## Interlude: Different programming approaches
+
+Now that we have our web page ready, there are some decisions we have to make about our coding style. Most importantly, what order are we going to do things? We can either try to build our application from the top down - starting with the root components and working our way down to the lower level ones - or from the bottom up - essentially the opposite.
+
+![top down vs bottom up](https://www.thecrazyprogrammer.com/wp-content/uploads/2018/10/Difference-between-Top-down-and-Bottom-up-Approach-in-Programming.jpg)
+
+In this project I will be following a bottom up approach, so we will start with our most basic components and put them together at the end.
