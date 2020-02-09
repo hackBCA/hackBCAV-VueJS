@@ -109,6 +109,20 @@ Components have each of the three things we use in a web app within them, making
 
 For a full Vue app, we are essentially just sticking a bunch of components together with some overhead to make a complete thing.
 
+## `plans`
+
+Now that we understand that Vue is made up of components, let's plan out our application on a component level.
+
+Our application will probably end up looking something like this: (Not exactly, this is just a mockup)
+
+![initial schematic](pictures/todo-schematic.png)
+
+Now let's plan out what our components:
+
+![labeled schematic](pictures/todo-schematic-labeled.png)
+
+Now that we have a concrete plan, we are ready to jump in and start building our project!
+
 ## `vue create`
 
 Now that we have a basic understanding of what Vue is, let's jump right in and start writing our first app!
@@ -138,3 +152,15 @@ This command will give us a menu to guide us through all of the boilerplate that
 ```
 
 These are the settings that we will use for this project, so go through the menu and select the same options (if you would like to save it as a preset that's fine.)
+
+Now that we have created our project, we can actually go in and run it right away! Sadly, VueCLI did not read our minds and write our whole project for us, but it did add some sample code to get us started. Let's go ahead and get our development environment up!
+
+```bash
+cd todo-list
+yarn serve
+```
+
+Now if we follow the link in our terminal output, we can see a webpage that looks something like this:
+![Vue Create Page](pictures/vue-create.png)
+
+Cool! Just like that we have a development environment. And the coolest thing is it will update any time we make a change to our source code!
