@@ -106,7 +106,7 @@ Components have each of the three things we use in a web app within them, making
       };
     },
     methods: {
-      onClick() {
+      onClick: () => {
         this.activated = !this.activated;
       },
     },
@@ -125,6 +125,16 @@ Let's break down some of the things in this component so that we can get a bette
 First of all, what does the `<template>` tag mean? `<template>` is actually a weird little HTML5 tag that does not display content unless it is directed to. In Vue land, `<template>` is what we put the things that we actually want to be rendered when the component is mounted. We'll get back to the weird looking fields in the H1 tag in a second.
 
 Secondly, what is going on in the `<script>` tag? Vue components wouldn't really be all that useful without some data and functionality, so we put those in our `<script>`. First of all, we give every Vue component we create a `name` to identify it.
+
+Next, we can pass a Vue component `props` when we create it, much like an HTML attribute. We can define what props our component takes, and what type we expect the data to be in the `props` field.
+
+The next field in our `<script>` is `data`, which looks a little different than the others... Why is it a function? Well, `data` holds all of our state data for our component, and we need each instance of the component to have a unique set of data, so we use functions.
+
+Finally (for this example), we have `methods`. This is simply an object holding all of the different methods we may want to call from this component. In this example, it holds the mutator that changes our `data` when the `<h1>` is clicked.
+
+So, now we can go back to the attributes in our `<h1>`. Vue gives us a bunch of special attributes that we can use to make our app do things. All of these attributes are prefixed with a `:` if they are a way to display data, and a `@` if they call something.
+
+Finally, we can take a quick look at our `<style>` tag. What is special about the `<style>` tag here are the two attributes that come with it. The first one, `lang`, describes what language the `<style>` content is in, so that our preprocessor knows how to interpret and compile it. The second one, `scoped`, can be included to keep our styles scoped to just the component that the style is in, and not have an effect on the rest of our app. (See what I meant when I said to forget "Seperation of Concerns"?)
 
 For a full Vue app, we are essentially just sticking a bunch of components together with some overhead to make a complete thing.
 
