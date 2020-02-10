@@ -64,7 +64,7 @@ To go through this course, you will need to have a few things installed ahead of
     - If you don't use Firefox or something Chromium based, then you can also use the [standalone electron app](https://github.com/vuejs/vue-devtools/blob/dev/packages/shell-electron) (Looking at you, guy who thinks he's cool because he uses QuteBrowser)
 - [VueCLI](https://cli.vuejs.org/)
   - This is the tool we will use to generate all of the boilerplate for our Vue projects
-  - install with `yarn global add @vue/cli` or `npm i -g @vue.cli` if you didn't install yarn
+  - install with `yarn global add @vue/cli` or `npm i -g @vue/cli` if you didn't install yarn
 
 ## `intro`
 
