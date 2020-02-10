@@ -263,7 +263,7 @@ We will start off extremely basic, with a component that simply displays our tod
 <style lang="scss"></style>
 ```
 
-With this code, we simply pass a `todo` prop to our new component and it will display it in an `<h3>`. Lets move over to our `App.vue` and give it a try.
+With this code, we simply pass a `todo` prop to our new component and it will display it in an `<h3>`. Let's move over to our `App.vue` and give it a try.
 
 If we want to include the `Todo` component in our `App.vue`, we need to import it just like we would any other javascript thing.
 
@@ -295,3 +295,62 @@ If we move back over to our browser, we can see that our page is updated!
 ![Todo Example](pictures/todo-initial.png)
 
 Cool! We are finally rendering things to the screen! :confetti:
+
+## `todos`
+
+now that we have the basics of our `todo` component done, let's make the `todos` component that will actually be responsible for all of our `todos`. What we want to do here is make a component that renders a list of a list of todos as `todo` components. Create a `Todos.vue` file in your `components` folder and let's get started!
+
+```bash
+touch components/Todos.vue
+```
+
+As a quick tip, there is no reason to rewrite all of our standard boilerplate every time you make a new component. Either use a text editor extension (I think all of the official extensions use the `vue` keyword to generate this template) that gives you snippets, or copy paste from another component and go from there.
+
+Go ahead and import the `Todo` component and include it just like we did in our `App.vue` to get started. Now it's time to learn about `v-for`.
+
+### `v-for`
+
+[actual Vue guide](https://vuejs.org/v2/guide/list.html)
+
+Often times on a web app, we want to render an entire list of data through a template. The way to do this without frameworks is extremely messy (writing an HTML string and adding it to the DOM). Vue provides a super easy way to do this, using the `v-for` attribute.
+
+Here, we can make a list in our `Todos`, and then just render a list of `Todo` objects.
+
+if we take in `todos` as a prop, then we can simlpy do something like this:
+
+```html
+<Todo v-for="todo in todos" :todo="todo" :key="todo" />
+```
+
+Let's dissect this line a bit, and discuss some potential issues.
+
+`v-for` takes a statement in the for `"x in y"` or `"x of y"`, (doesn't matter which) which gives us an alias, `x` that represents each element of the iterable `y`. When we use a `v-for`, it is important that we also include a `:key` field, so that Vue knows how to tell the difference between the different elements and update them accordingly. Here, we are simply using the `todo` as a placeholder key, but this would be problematic if we ever have multiple todos with the same text, so we will deal with that later. You may also notice that we put a `:` infront of the `todo` prop here. This is so that Vue knows that we are not defining `todo` as the string `"todo"`, but rather the `todo` alias from our `v-for`.
+
+Now let's update our App.vue to show our `Todos` instead of just individual `Todo`s. In the `<script>` section we can simply switch all of the mentions of `Todo` to `Todos` to import our new module. We will also want to define an array in our `data` field (remember that from the example? If not go take [another look](#components).)
+
+```html
+<script>
+import Todos from "@/components/Todos.vue";
+export default {
+  name: "App",
+  components: {
+    Todos
+  },
+  data: () => {
+    return {
+      sampleTodos: ["Hello, World!", "Hello Again!", "yoyoyo"]
+    };
+  }
+};
+</script>
+```
+
+Now that we have all of that set up, we can simply add a `Todos` component that renders our `sampleTodos` in our `<template>`.
+
+```html
+<Todos :todos="this.sampleTodos" />
+```
+
+Just like that, we are rendering our samples to the screen!
+
+![Todos as a list](pictures/todos-initial.png)

@@ -1,16 +1,20 @@
 <template>
   <div id="app">
-    <Todo todo="Hello, World!"></Todo>
-    <Todo todo="Hello Again!" />
+    <Todos :todos="this.sampleTodos" />
   </div>
 </template>
 
 <script>
-import Todo from "@/components/Todo.vue";
+import Todos from "@/components/Todos.vue";
 export default {
   name: "App",
   components: {
-    Todo
+    Todos
+  },
+  data: () => {
+    return {
+      sampleTodos: ["Hello, World!", "Hello Again!", "yoyoyo"]
+    };
   }
 };
 </script>
