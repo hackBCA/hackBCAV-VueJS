@@ -91,22 +91,40 @@ Components have each of the three things we use in a web app within them, making
 
 ```html
 <template>
-  <h1>Hi! I'm a Vue component called {{title}}!</h1>
+  <h1 :class="'red':activated" @click="onClick">
+    Hi! I'm a Vue component called {{title}}! Click me!
+  </h1>
 </template>
 
 <script>
   export default {
     name: 'Example Vue Component',
-    props: ['title'],
+    props: { title: String },
+    data: () => {
+      return {
+        activated: false,
+      };
+    },
+    methods: {
+      onClick() {
+        this.activated = !this.activated;
+      },
+    },
   };
 </script>
 
 <style lang="scss" scoped>
-  h1 {
+  .red {
     color: red;
   }
 </style>
 ```
+
+Let's break down some of the things in this component so that we can get a better understanding of what's going on.
+
+First of all, what does the `<template>` tag mean? `<template>` is actually a weird little HTML5 tag that does not display content unless it is directed to. In Vue land, `<template>` is what we put the things that we actually want to be rendered when the component is mounted. We'll get back to the weird looking fields in the H1 tag in a second.
+
+Secondly, what is going on in the `<script>` tag? Vue components wouldn't really be all that useful without some data and functionality, so we put those in our `<script>`. First of all, we give every Vue component we create a `name` to identify it.
 
 For a full Vue app, we are essentially just sticking a bunch of components together with some overhead to make a complete thing.
 
@@ -206,8 +224,31 @@ In this project I will be following a bottom up approach, so we will start with 
 
 Let's get started with our simplest component, the `todo` component. This component will be a small piece that will display each one of our todos. It will then be rendered in a list so that all of our todos are shown.
 
-start by creating a `todo.vue` file in `/src/components`
+Start by creating a `Todo.vue` file in `/src/components`.
 
 ```bash
-touch src/components/todos.vue
+touch src/components/Todo.vue
+```
+
+Now go ahead and open the `Todo.vue` file in your text editor.
+
+We will start off extremely basic, with a component that simply displays our todos. That would look something like this:
+
+```html
+<template>
+  <div class="todo-item">
+    <h3>{{todo}}</h3>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'Todo',
+    props: {
+      todo: String,
+    },
+  };
+</script>
+
+<style lang="scss"></style>
 ```
