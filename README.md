@@ -262,3 +262,36 @@ We will start off extremely basic, with a component that simply displays our tod
 
 <style lang="scss"></style>
 ```
+
+With this code, we simply pass a `todo` prop to our new component and it will display it in an `<h3>`. Lets move over to our `App.vue` and give it a try.
+
+If we want to include the `Todo` component in our `App.vue`, we need to import it just like we would any other javascript thing.
+
+We can do that in the `<script>` section of our App.vue. We also need to create a `components` field and add it to our `App` script, then add `Todo` as a field. After doing that, your `<script>` section should look like this:
+
+```html
+<script>
+  import Todo from '@/components/Todo.vue';
+  export default {
+    name: 'App',
+    components: {
+      Todo,
+    },
+  };
+</script>
+```
+
+You may be wondering what that `@` is doing in the file path. To put it simply, you can use the `@` symbol as a standin for the root of your Vue project, so that you don't need a mess of `..`s in your code that you would need to update if you move a file.
+
+If we now add some `<Todo>`s to our `<template>`, we can see the fruits of our labor. Go ahead and try to make some `<Todo>`s. Keep in mind that since `<Todo>` doesn't take any children, we can use it as a self closing tag, so both of the following are valid:
+
+```html
+<Todo todo="Hello, World!"></Todo>
+<Todo todo="Hello Again!" />
+```
+
+If we move back over to our browser, we can see that our page is updated!
+
+![Todo Example](pictures/todo-initial.png)
+
+Cool! We are finally rendering things to the screen! :confetti:
