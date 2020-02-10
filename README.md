@@ -10,6 +10,8 @@ Aidan Glickman
 
 Welcome to this VueJS tutorial. This repo is meant as a guide for the workshop I am teaching at hackBCA V, but you could probably follow along from the code examples and this document.
 
+If you are simply looking for a jumping off point to build your own class or workshop, feel free to use my code or language, just make sure you credit me in your project :smile:.
+
 In this tutorial, we will be learning VueJS by jumping right in and doing a project. We will be building and continuously improving a todo list application as an example.
 
 ## `$ wtf vue`
