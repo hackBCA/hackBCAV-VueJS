@@ -286,15 +286,14 @@ You may be wondering what that `@` is doing in the file path. To put it simply, 
 If we now add some `<Todo>`s to our `<template>`, we can see the fruits of our labor. Go ahead and try to make some `<Todo>`s. Keep in mind that since `<Todo>` doesn't take any children, we can use it as a self closing tag, so both of the following are valid:
 
 ```html
-<Todo todo="Hello, World!"></Todo>
-<Todo todo="Hello Again!" />
+<Todo todo="Hello, World!"></Todo> <Todo todo="Hello Again!" />
 ```
 
 If we move back over to our browser, we can see that our page is updated!
 
 ![Todo Example](pictures/todo-initial.png)
 
-Cool! We are finally rendering things to the screen! :confetti:
+Cool! We are finally rendering things to the screen! :tada:
 
 ## `todos`
 
@@ -330,18 +329,18 @@ Now let's update our App.vue to show our `Todos` instead of just individual `Tod
 
 ```html
 <script>
-import Todos from "@/components/Todos.vue";
-export default {
-  name: "App",
-  components: {
-    Todos
-  },
-  data: () => {
-    return {
-      sampleTodos: ["Hello, World!", "Hello Again!", "yoyoyo"]
-    };
-  }
-};
+  import Todos from '@/components/Todos.vue';
+  export default {
+    name: 'App',
+    components: {
+      Todos,
+    },
+    data: () => {
+      return {
+        sampleTodos: ['Hello, World!', 'Hello Again!', 'yoyoyo'],
+      };
+    },
+  };
 </script>
 ```
 
@@ -351,6 +350,6 @@ Now that we have all of that set up, we can simply add a `Todos` component that 
 <Todos :todos="this.sampleTodos" />
 ```
 
-Just like that, we are rendering our samples to the screen!
+Just like that, we are rendering our samples to the screen! :tada:
 
 ![Todos as a list](pictures/todos-initial.png)
