@@ -54,7 +54,7 @@ To go through this course, you will need to have a few things installed ahead of
   - I just prefer `yarn` to `npm` for package management, but it isn't required. Any `yarn` commands used in this documentation can be replaced with their `npm` equivalents.
 - **OPTIONAL:** It is also very helpful to have a vue extension in your text editor of choice, as you get nice features like intellisense and syntax highlighting
   - :gem: VS Code: Vue provides an extenison called [Vetur](https://github.com/vuejs/vetur) for Vue language support.
-  - :heavy_check_mark: Vim: I recommend [vim-vue-plugin] if you are using Vim.
+  - :heavy_check_mark: Vim: I recommend [vim-vue-plugin](https://github.com/leafOfTree/vim-vue-plugin) if you are using Vim.
   - :twisted_rightwards_arrows: Sublime Text: Vue provides a package called [Vue Syntax Highlight](https://github.com/vuejs/vue-syntax-highlight) for Vue language support.
   - :atom: Atom: Vue doesn't seem to have an official Atom package, but [language-vue](https://atom.io/packages/language-vue) has a lot of downloads.
 - [Vue devtools](https://github.com/vuejs/vue-devtools)
