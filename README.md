@@ -355,3 +355,62 @@ Now that we have all of that set up, we can simply add a `Todos` component that 
 Just like that, we are rendering our samples to the screen! :tada:
 
 ![Todos as a list](pictures/todos-initial.png)
+
+### `container`
+
+Now that we are really starting to build things, let's just take a second to better organize things. We'd rather not have all of our logic taken care of in our `App` component, so we can break out all of our todo logic in to a container component that will be responsible for handling all of our todo based stuff. Let's call it `TodoContainer`.
+
+Basically what we want to do is set up `TodoContainer` to look very similar to how `App` looks right now, and change `App` to have a `TodoContainer` component.
+
+TodoContainer should look something like this:
+
+```html
+<template>
+  <div>
+    <Todos :todos="this.sampleTodos" />
+  </div>
+</template>
+
+<script>
+import Todos from "@/components/Todos.vue";
+export default {
+  name: "Todo Container",
+  components: {
+    Todos
+  },
+  data: () => {
+    return {
+      sampleTodos: ["Hello, World!", "Hello Again!", "yoyoyo"]
+    };
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+</style>
+```
+
+And `App` will look like this:
+
+```html
+<template>
+  <div id="app">
+    <TodoContainer />
+  </div>
+</template>
+
+<script>
+import TodoContainer from "@/components/TodoContainer.vue";
+export default {
+  name: "App",
+  components: {
+    TodoContainer
+  }
+};
+</script>
+
+<style lang="scss">
+</style>
+```
+
+Now that we have that done, we will have a more sensible structure for things in the future.
