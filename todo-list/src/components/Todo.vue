@@ -2,6 +2,7 @@
   <div class="todo-item">
     <input type="checkbox" v-model="todo.completed" />
     <p :class="{ completed: todo.completed }">{{ todo.name }}</p>
+    <p v-if="todo.tag">Tag: {{ todo.tag }}</p>
     <button v-on:click="deleteTodo">X</button>
   </div>
 </template>

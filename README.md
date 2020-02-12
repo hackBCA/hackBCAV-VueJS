@@ -600,3 +600,168 @@ deleteTodo(todoId) {
 Now we can both mark our todos as completed and delete them! Cool! Give it a try and check it out in the Vue devtools.
 
 ![Complete and Delete](pictures/complete-initial.png)
+
+## `tags`
+
+Now we can add our last piece of core functionality from our schematic, our tag system. We want to have a tagging system where we can assign tags to todos, and then select which tags we want to see at any given time. Let's start by adding a second input field to our `NewTodo` component where users can specify a tag. Update `NewTodo` to look like this:
+
+```html
+<template>
+  <form @submit.prevent="addTodo">
+    <input
+      type="text"
+      v-model="todo.name"
+      name="todo"
+      placeholder="Add a Todo..."
+      required
+    />
+    <input
+      type="text"
+      v-model="todo.tag"
+      name="tag"
+      placeholder="Add a Tag..."
+    />
+    <input type="submit" value="Submit" class="btn" />
+  </form>
+</template>
+
+<script>
+  export default {
+    name: 'NewTodo',
+    data: () => {
+      return {
+        todo: { name: '', tag: '' },
+      };
+    },
+    methods: {
+      addTodo: function() {
+        this.$emit('add-todo', this.todo);
+        this.todo.name = '';
+        this.todo.tag = '';
+      },
+    },
+  };
+</script>
+
+<style lang="scss" scoped>
+  input:invalid {
+    box-shadow: none !important;
+  }
+</style>
+```
+
+Then to display our tag we can add another `<p>` in our `Todo` component. There is no point displaying the tag field if there is no tag, so I added a `v-if` as well.
+
+```html
+<p v-if="todo.tag">Tag: {{ todo.tag }}</p>
+```
+
+If we want to make a tag menu, we are going to want to have access to a list of the tags in use in our todos. This gives us a great opportunity to learn about computed properties. Head over to you `TodoContainer` component for this.
+
+### `computed`
+
+[Vue documentation](https://vuejs.org/v2/guide/computed.html)
+
+Computed properties in Vue are a way for us to get data that requires processing on the fly. To make a computed property, we simply write a function in the `computed` field of our `<script>` tag of our component, and whatever it returns will be assigned to the field we specify. Vue does some magic behind the scenes to make sure that computed functions are only run when they should update, and it works pretty well. Let's make a `computed` field that returns a list of all of the unique tags used in our todos.
+
+```javascript
+computed: {
+  tags: function() {
+    return Array.from(new Set(this.todos.map(x => x.tag)));
+  },
+},
+```
+
+This function is just a simple array map to extract all of the tags, which we then convert to a set to get rid of duplicates, and then back to an array.
+
+### `TagSelector`
+
+Now we can create a new component that will manage our tag selection. Go ahead and create a new component called `TagSelector`. This component will take a list of tags as a prop, and display a menu for us to select which ones we want to view.
+
+First, create the file and set up our standard boilerplate. Then we can add an empty array in the data field that will act as our list of selected tags. We also obviously need a prop to take in the list of all possible tags.
+
+Next, we can write a `<div v-for=...>` in our `template` to render our checkboxes and labels.
+
+After we add all of that, your `TagSelector.vue` should look something like this:
+
+```html
+<template>
+  <div>
+    <div v-for="tag in tags" :key="tag">
+      <input :value="tag" v-model="selected" type="checkbox" :id="tag" />
+      <label :for="tag">{{ tag }}</label>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'TagSelector',
+    data: () => {
+      return {
+        selected: [],
+      };
+    },
+    props: {
+      tags: Array,
+    },
+  };
+</script>
+
+<style lang="scss" scoped></style>
+```
+
+Now let's just add the `TagSelector` component to our `TodoContainer` so that we can see it. Include the component like we have in the past, and then just add it in at the top of the template.
+
+```html
+<TagSelector :tags="tags" />
+<hr />
+```
+
+I added an `<hr />` as well here, because until we style this page it will be hard to differentiate between the last item of our `TagSelector` menu and the first checkbox of our actual `Todos`.
+
+![TagSelector Menu](pictures/tagselector-initial.png)
+
+Cool! We have our menu displaying! Now we need a way to send our list of selected tags back up to our `TodoContainer`. We already learned how to do this with a button, so let's try to do it whenever our selected tags change.
+
+Simply add a method to update your tags that emits `this.selected` so that we can ingest it in our container.
+
+```js
+updateTags() {
+      this.$emit("update-tags", this.selected);
+},
+```
+
+Then we can add a `v-on:change` to our input to call it. Now whenever we update our selected tags, it will be emitted to our container. Since we will often just want to see all of our todos, I also added a button that selects every tag. Simply add a button like this:
+
+```html
+<button v-on:click="addAll">Show All</button>
+```
+
+```javascript
+addAll() {
+  this.selected = this.tags;
+  this.updateTags();
+}
+```
+
+ Let's move over to `TodoContainer` to ingest that and forward the information to our `Todos`.
+
+First, add a `v-on:update-tags` to our `<TagSelector>` to call an `updateTags` function. Then, add a `data` field called `selectedTags` or something similar that starts as an empty array. Then, add an `updateTags(tags)` method that sets `selectedTags` to `tags`.
+
+Now, we need to add a prop to `Todos` that takes a list of tags. in `TodoContainer` add `:tags="selectedTags"` to the call to `Todos`.
+
+Now, we need to edit `Todos` so that it only displays the todos with applicable tags. First, add `tags` as a prop that takes an array. Now, we can add a computed property called `visibleTodos` that filters out all of the todos that don't have a selected tag.
+
+```javascript
+computed: {
+  visibleTodos: function() {
+    const visible = this.todos.filter(todo => this.tags.includes(todo.tag));
+    return visible;
+  }
+}
+```
+
+Now, we can just switch out `todos` in our `v-for` for `visibleTodos` and we should be all set!
+
+![Working Tag Selector](pictures/tagselector-working.png)
