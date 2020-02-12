@@ -372,22 +372,21 @@ TodoContainer should look something like this:
 </template>
 
 <script>
-import Todos from "@/components/Todos.vue";
-export default {
-  name: "Todo Container",
-  components: {
-    Todos
-  },
-  data: () => {
-    return {
-      sampleTodos: ["Hello, World!", "Hello Again!", "yoyoyo"]
-    };
-  }
-};
+  import Todos from '@/components/Todos.vue';
+  export default {
+    name: 'TodoContainer',
+    components: {
+      Todos,
+    },
+    data: () => {
+      return {
+        sampleTodos: ['Hello, World!', 'Hello Again!', 'yoyoyo'],
+      };
+    },
+  };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
 ```
 
 And `App` will look like this:
@@ -400,17 +399,16 @@ And `App` will look like this:
 </template>
 
 <script>
-import TodoContainer from "@/components/TodoContainer.vue";
-export default {
-  name: "App",
-  components: {
-    TodoContainer
-  }
-};
+  import TodoContainer from '@/components/TodoContainer.vue';
+  export default {
+    name: 'App',
+    components: {
+      TodoContainer,
+    },
+  };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
 ```
 
 Now that we have that done, we will have a more sensible structure for things in the future.
@@ -435,9 +433,9 @@ To send data back up to our parent component, we will use `this.$emit();`. This 
 
 ```js
 addTodo: function() {
-      this.$emit("add-todo", this.todo);
-      this.todo = "";
-    }
+  this.$emit("add-todo", this.todo);
+  this.todo = "";
+}
 ```
 
 **NOTE:** We can not use an arrow function here because that changes the parent context, breaking the use of `this`.
@@ -453,3 +451,77 @@ We also need a method called `addTodo` to actually add our todo to the list.
 **NOTE:** I switched out `sampleTodos` in our data for `todos` as they are no longer just a sample. If you do this too, make sure you update every reference to that variable.
 
 ![Add Todos](pictures/addTodos-initial.png)
+
+## `object`
+
+Now that our todos are going to start getting a bit more complicated, let's stop using plain `String`s for our todos and switch to objects so that we can hold more than just the name of the todo. This will also be important as we will need some sort of `id` to identify different todos.
+
+To do this, we need to update a few things in each of our files. In `TodoContainer`, we will start by wiping out our todos to not have any sample data.
+
+```javascript
+data: () => {
+  return {
+    todos: []
+  };
+},
+```
+
+Now, we can update our `addTodo` method. We are now going to expect an object from the `NewTodo` component, but we will need to add a unique id to it. This is a good opportunity to look at how to include libraries in our application.
+
+### `npm packages`
+
+To generate ids, we can use the [shortid](https://www.npmjs.com/package/shortid) package. We will start by adding the package to our project by running the following from our terminal.
+
+```bash
+yarn add shortid
+```
+
+Now we can go import it in to our `TodoContainer` and start using it! Add this line with our other imports at the top of our `script` section.
+
+```javascript
+import shortid from 'shortid';
+```
+
+Now we can update our `addTodo` method to add an id to each todo.
+
+```javascript
+methods: {
+  addTodo(todo) {
+    var newTodo = { ...todo, _id: shortid.generate() };
+    this.todos.push(newTodo);
+  },
+},
+```
+
+Now we need to update our `NewTodo` component to give us objects instead of strings. This will be useful if we decide to add attributes like tags or something in the future. To do this update our `data` to now use an object. For now we are just going to give it a name attribute, but we may want to add more in the future.
+
+```javascript
+data: () => {
+  return {
+    todo: { name: '' },
+  };
+},
+```
+
+Now we need to update our `v-model` on our input to point to `v-model="todo.name"` to match our data.
+
+Finally in `NewTodo`, we need to update our `addTodo` method to deal with objects.
+
+```javascript
+methods: {
+  addTodo: function() {
+    this.$emit('add-todo', this.todo);
+    this.todo.name = '';
+  },
+},
+```
+
+And to end off our conversion to objects, let's go to our `Todos` component and switch our `:key` to use `todo._id` instead of `todo`, as that is really the kind of thing we are meant to use.
+
+Now let's just check on our app to make sure everything is still working, and use our Vue Devtools to check out our data.
+
+To use Vue Devtools, inspect the page (`ctrl+shift+i`) then navigate to the Vue panel (may be hidden in the `»` menu.) Now, we can inspect the state of our app by navigating through the component tree. Let's take a look at our `TodoContainer` component and see what happens when we add a todo.
+
+![Devtools](pictures/devtools-initial.png)
+
+Cool! Our `todos` array now has an object with the name we put in and a unique id! We can keep adding objects and they will each get a new id!
