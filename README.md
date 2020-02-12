@@ -414,3 +414,42 @@ export default {
 ```
 
 Now that we have that done, we will have a more sensible structure for things in the future.
+
+### `newTodo`
+
+Now that we have the basics of rendering our todos down and a more functional container, let's start adding some of our functionality! First of all, we want a component that will let us add new todos.
+
+Lets go ahead and add another component to deal with this.
+
+```bash
+touch components/NewTodo.vue
+```
+
+Now set it up with boilerplate just like our other components.
+
+In our script tag, we can go ahead and set it up with a `data` field called `todo`, which will hold what the user types in our input field. Then, we need to add a `method` that will help us add it to our list of todos. Since we don't have any form of state management at the moment. We will need to propagate the change up to where we are storing our todos.
+
+#### `emit`
+
+To send data back up to our parent component, we will use `this.$emit();`. This function can trigger a custom event in our parent component, which we can then use to call a function. In our `NewTodo` component, we can write a method that reads the contents of our `todo` state variable, propogates it up, and then resets it.
+
+```js
+addTodo: function() {
+      this.$emit("add-todo", this.todo);
+      this.todo = "";
+    }
+```
+
+**NOTE:** We can not use an arrow function here because that changes the parent context, breaking the use of `this`.
+
+Now that we have our `NewTodo` emitting our todo, we can just add a prop to it in our `TodoContainer`.
+
+```html
+<NewTodo v-on:add-todo="addTodo" />
+```
+
+We also need a method called `addTodo` to actually add our todo to the list.
+
+**NOTE:** I switched out `sampleTodos` in our data for `todos` as they are no longer just a sample. If you do this too, make sure you update every reference to that variable.
+
+![Add Todos](pictures/addTodos-initial.png)
