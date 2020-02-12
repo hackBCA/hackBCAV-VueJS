@@ -249,7 +249,7 @@ We will start off extremely basic, with a component that simply displays our tod
 ```html
 <template>
   <div class="todo-item">
-    <h3>{{todo}}</h3>
+    <p>{{todo}}</p>
   </div>
 </template>
 
@@ -265,7 +265,7 @@ We will start off extremely basic, with a component that simply displays our tod
 <style lang="scss"></style>
 ```
 
-With this code, we simply pass a `todo` prop to our new component and it will display it in an `<h3>`. Let's move over to our `App.vue` and give it a try.
+With this code, we simply pass a `todo` prop to our new component and it will display it in an `<p>`. Let's move over to our `App.vue` and give it a try.
 
 If we want to include the `Todo` component in our `App.vue`, we need to import it just like we would any other javascript thing.
 
@@ -525,3 +525,78 @@ To use Vue Devtools, inspect the page (`ctrl+shift+i`) then navigate to the Vue 
 ![Devtools](pictures/devtools-initial.png)
 
 Cool! Our `todos` array now has an object with the name we put in and a unique id! We can keep adding objects and they will each get a new id!
+
+## `completed`
+
+Now that we have our todos split in to objects, it will be really easy for us to add a field for completed objects. First, let's add a `completed` field to each new todo by adding `completed: false` to the todo that we create in `addTodo` in our `TodoContainer`. Now we can add some things in our `Todo` component.
+
+We are going to add the ability to mark a todo done and to delete a todo.
+
+To mark a todo done, we will add a checkbox in our `Todo` component:
+
+```html
+<input type="checkbox" v-on:change="complete" v-model="todo.completed" />
+```
+
+Now, since marking something as done is essentially just cosmetic, we don't really need to propogate this back up to our `TodoContainer`. What we will do though is apply a css class to our todo to add a strikethrough if it is marked as completed.
+
+To do this, we will add `:class` attribute to our `<p>` tag. What this does is conditionally gives our `<p>` the `completed` class if `todo.completed` is true.
+
+```html
+    <p :class="{ completed: todo.completed }">{{ todo.name }}</p>
+```
+
+Now we can just add a small css class in the `<style>` section of our component to actually add the strikethrough.
+
+```css
+.completed {
+  text-decoration: line-through;
+}
+```
+
+Now go ahead and give it a try!
+
+### `delete`
+
+Our method of deleting todos is going to be a bit more complex, as we need to propogate our request up to our TodoContainer.
+
+First, let's add a button and a method in our `Todo` component.
+
+```html
+<button v-on:click="deleteTodo">X</button>
+```
+
+```js
+methods: {
+  deleteTodo() {
+    this.$emit('delete-todo', this.todo._id);
+  },
+},
+```
+
+This will emit our `delete-todo` up to `Todos`, so we need to pass it up another level. Edit `Todos` to have `v-on:delete-todo="deleteTodo"` as part of our `<Todo>`.
+
+Then add a `deleteTodo` method like this:
+
+```javascript
+methods: {
+  deleteTodo(todoId) {
+    this.$emit('delete-todo', todoId);
+  },
+},
+```
+
+Finally, we can actually delete the todo in our `TodoContainer`. Add `v-on:delete-todo="deleteTodo"` to `<Todos>`, and then add the following method to actually delete the todo.
+
+```javascript
+deleteTodo(todoId) {
+  this.todos.splice(
+    this.todos.findIndex(el => el._id === todoId),
+    1,
+  );
+},
+```
+
+Now we can both mark our todos as completed and delete them! Cool! Give it a try and check it out in the Vue devtools.
+
+![Complete and Delete](pictures/complete-initial.png)

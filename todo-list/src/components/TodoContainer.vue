@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Todos :todos="this.todos" />
+    <Todos :todos="this.todos" v-on:delete-todo="deleteTodo" />
     <NewTodo v-on:add-todo="addTodo" />
   </div>
 </template>
@@ -22,8 +22,14 @@
     },
     methods: {
       addTodo(todo) {
-        var newTodo = { ...todo, _id: shortid.generate() };
+        var newTodo = { ...todo, completed: false, _id: shortid.generate() };
         this.todos.push(newTodo);
+      },
+      deleteTodo(todoId) {
+        this.todos.splice(
+          this.todos.findIndex(el => el._id === todoId),
+          1,
+        );
       },
     },
   };

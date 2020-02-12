@@ -1,6 +1,11 @@
 <template>
   <div>
-    <Todo v-for="todo in todos" :todo="todo" :key="todo._id" />
+    <Todo
+      v-for="todo in todos"
+      :todo="todo"
+      :key="todo._id"
+      v-on:delete-todo="deleteTodo"
+    />
   </div>
 </template>
 
@@ -13,6 +18,11 @@
     },
     props: {
       todos: Array,
+    },
+    methods: {
+      deleteTodo(todoId) {
+        this.$emit('delete-todo', todoId);
+      },
     },
   };
 </script>
