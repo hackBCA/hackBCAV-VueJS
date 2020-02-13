@@ -806,6 +806,6 @@ Vue.use(BootstrapVue);
 
 ### `styled`
 
-Now that the page is all styled, our app is really starting to look real!
+I went ahead and converted the whole app to BootstrapVue and added some styling. I'm really not that great at visual stuff so it's not as good as it could be and I'm sure there are some mistakes, but feel free to poke around and check it out!
 
 ![Styled Page](pictures/styled-initial.png)
