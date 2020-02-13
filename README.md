@@ -764,4 +764,48 @@ computed: {
 
 Now, we can just switch out `todos` in our `v-for` for `visibleTodos` and we should be all set!
 
+### `watch`
+
+If we don't want to listen to DOM events to call our update function, we can use a watcher instead. Watchers call functions any time a data field is changed.
+
+```javascript
+watch: {
+  selected: function() {
+    this.updateTags();
+  },
+},
+```
+
+By adding this function, we can take out our `v-on:change` from our input and handle the updates outside.
+
 ![Working Tag Selector](pictures/tagselector-working.png)
+
+## `styling`
+
+Just like that, we already have all the functionality that we promised done! The only difference between our project and the schematic is just how ugly it looks to be honest. We can fix that pretty easily by either writing our own CSS, or using a preexisting library. I really like [Bootstrap](https://getbootstrap.com/docs/4.4/getting-started/introduction/), which conveniently has a library for Vue called [BootstrapVue](https://bootstrap-vue.js.org/). I won't be holding your hand through the code in this part of the tutorial like I have up until now, but I highly encourage you to dive in and try to make the site look pretty on your own.
+
+I will be styling this project with BootstrapVue based on the [Nord](https://www.nordtheme.com/) color scheme, which is the theme I use for pretty much everything.
+
+### `universal`
+
+There are some styles that we are going to want to include globally (project wide font, color definitions, etc.) To do this, we can add a `styles` folder to our `assets` folder. Then you can write whatever styles you want in files in there, and then import them to your `App.vue` styles.
+
+### `libraries`
+
+The BootstrapVue library provides a bunch of custom Vue components that we can use in place of normal components. If we want to be able to access these components in all of our components, we simply need to add BootstrapVue to our Vue runtime. To do this, add a few lines to your `main.js` file. Import BootstrapVue by adding
+
+```javascript
+import BootstrapVue from 'bootstrap-vue';
+```
+
+and
+
+```javascript
+Vue.use(BootstrapVue);
+```
+
+### `styled`
+
+Now that the page is all styled, our app is really starting to look real!
+
+![Styled Page](pictures/styled-initial.png)

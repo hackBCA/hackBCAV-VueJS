@@ -1,0 +1,11 @@
+@import '_custvars.scss';
+@import '~nord/src/sass/nord.scss';
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~bootstrap-vue/src/index.scss';
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans&display=swap');
+
+body {
+  background-color: $dark;
+  font-family: 'Fira Sans', sans-serif;
+  color: $light;
+}

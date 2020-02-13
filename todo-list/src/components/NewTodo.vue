@@ -1,19 +1,25 @@
 <template>
   <form @submit.prevent="addTodo">
-    <input
-      type="text"
-      v-model="todo.name"
-      name="todo"
-      placeholder="Add a Todo..."
-      required
-    />
-    <input
-      type="text"
-      v-model="todo.tag"
-      name="tag"
-      placeholder="Add a Tag..."
-    />
-    <input type="submit" value="Submit" class="btn" />
+    <b-row>
+      <b-col>
+        <b-form-input
+          v-model="todo.name"
+          name="todo"
+          placeholder="Add a Todo..."
+          required
+        />
+      </b-col>
+      <b-col>
+        <b-form-input
+          v-model="todo.tag"
+          name="tag"
+          placeholder="Add a Tag..."
+        />
+      </b-col>
+      <b-col>
+        <b-button type="submit" value="Submit">Add Todo</b-button>
+      </b-col>
+    </b-row>
   </form>
 </template>
 

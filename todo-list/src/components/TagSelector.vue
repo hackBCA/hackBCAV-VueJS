@@ -1,34 +1,39 @@
 <template>
   <div>
-    <button v-on:click="addAll">Show All</button>
-    <div v-for="tag in tags" :key="tag">
-      <input :value="tag" v-model="selected" v-on:change="updateTags" type="checkbox" :id="tag" />
-      <label :for="tag">{{ tag }}</label>
-    </div>
+    <b-button v-on:click="addAll">Show All</b-button>
+    <b-form-checkbox-group
+      v-model="selected"
+      :options="tags"
+      name="tags"
+    ></b-form-checkbox-group>
   </div>
 </template>
 
 <script>
-export default {
-  name: "TagSelector",
-  data: () => {
-    return {
-      selected: []
-    };
-  },
-  props: {
-    tags: Array
-  },
-  methods: {
-    updateTags() {
-      this.$emit("update-tags", this.selected);
+  export default {
+    name: 'TagSelector',
+    data: () => {
+      return {
+        selected: [],
+      };
     },
-    addAll() {
-      this.selected = this.tags;
-      this.updateTags();
-    }
-  }
-};
+    props: {
+      tags: Array,
+    },
+    methods: {
+      updateTags() {
+        this.$emit('update-tags', this.selected);
+      },
+      addAll() {
+        this.selected = this.tags;
+      },
+    },
+    watch: {
+      selected: function() {
+        this.updateTags();
+      },
+    },
+  };
 </script>
 
 <style lang="scss" scoped></style>
