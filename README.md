@@ -27,8 +27,6 @@ Essentially, it is a really popular javascript framework for building UIs and fr
 
 ### `knowledge`
 
-![Knowledge](https://thumbs.gfycat.com/EsteemedInconsequentialBuckeyebutterfly-size_restricted.gif)
-
 If you are taking this course, I assume you have some basic web development knowledge. Specifically, I assume you possess the following skills:
 
 - HTML
